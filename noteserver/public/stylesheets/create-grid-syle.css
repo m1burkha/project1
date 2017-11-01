@@ -1,0 +1,37 @@
+/*--------------------------------------------------------------
+Grid styling for Create Note page
+--------------------------------------------------------------*/
+.site {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 13fr 1fr;
+    grid-template-areas: "topbar topbar " "main main" "footer footer";
+
+}
+
+@media screen and (min-width: 700px) {
+    .site {
+        grid-template-columns: 125px 3fr 1fr 125px;
+        grid-template-areas: "topbar topbar topbar topbar" "leftbar main main rightbar" "footer footer footer footer";
+    }
+}
+
+.topbar {
+    grid-area: topbar;
+}
+
+.leftbar {
+    grid-area: leftbar;
+}
+
+.main-content {
+    grid-area: main;
+}
+
+.rightbar {
+    grid-area: rightbar;
+}
+
+.footer-content {
+    grid-area: footer;
+}
