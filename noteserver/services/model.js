@@ -1,6 +1,6 @@
 //import {default as storage} from '../services/storage.js';
 /*Models for creating a note */
-import * as storage from '../../services/storage.js';
+var storage = require('../services/storage.js');
 
 ;(function () {
 

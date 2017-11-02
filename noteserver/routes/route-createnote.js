@@ -2,24 +2,24 @@ var router = require('express').Router({
     mergeParams: true
 });
 
-//const controller = require('../public/controller/controller.js');
+const controller = require('../controllers/controller-createnote.js');
 
 // router.get('/',function (req, res) {
-//     console.log('in the create note route', req.path);
+//     console.log('in the create routes route', req.path);
 //     //res.send('You want to edit ' + req.params)
 //     res.render('createnote');
 // });
 
 router.route('/')
     .get(function (req, res) {
-        res.render('createnote');
+        controller.createNote(req, res);
     })
     .post(function (req, res) {
-        res.send('Add a new note');
+        controller.storeNote(req, res);
     });
 
 router.put('/:id', function (req, res) {
-    res.send('the id updated' + req.params.id);
+    controllerres.send('the id updated' + req.params.id);
     res.end();
 });
 
@@ -30,7 +30,7 @@ module.exports = router;
 // module.exports = function (router) {
 //
 //     router.get('/createnote').get(function (req, res) {
-//         console.log('in the create note route');
+//         console.log('in the create routes route');
 //         res.send('You want to edit ' + req.params)
 //     });
 //

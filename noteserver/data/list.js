@@ -23,7 +23,7 @@ function noteList() {
     //     return new Handlebars.SafeString(text);
     // });
     //
-    // const personHandler = Handlebars.compile(document.getElementById('note-list').innerHTML);
+    // const personHandler = Handlebars.compile(document.getElementById('routes-list').innerHTML);
     //
     // document.getElementById('item-list').innerHTML = personHandler(noteList);
 

@@ -1,15 +1,14 @@
-//import {default as model} from '../../services/model.js';
-import * as model from '../../services/model.js';
+import {default as model} from '../../services/model.js';
 
 
 export default (function ($) {
 
     let note = {};
 
-    $("#createnote").click((event) => {
-
-        window.location.href = "/createnote";
-    });
+    // $("#createnote").click((event) => {
+    //
+    //     window.location.href = "/createnote";
+    // });
 
 
     $("#formnote").submit((event) => {
@@ -35,7 +34,7 @@ export default (function ($) {
     });
 
     // $(document).on('click', '.selection', (event) =>{
-    //     note.importance = event.target.value;
+    //     routes.importance = event.target.value;
     // });
 
     $("body").on("click", ".selection", (event) => {
