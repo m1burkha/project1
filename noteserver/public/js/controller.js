@@ -1,17 +1,11 @@
-import {default as model} from '../../services/model.js';
+import {model} from '../services/modeljs';
+import {sorting} from '../controllers/controller-index.js';
 
-
-export default (function ($) {
+(function ($) {
 
     let note = {};
 
-    // $("#createnote").click((event) => {
-    //
-    //     window.location.href = "/createnote";
-    // });
-
-
-    $("#formnote").submit((event) => {
+     $("#formnote").submit((event) => {
         event.preventDefault();
 
         let $inputs = $('#formnote :input');
@@ -20,33 +14,50 @@ export default (function ($) {
         note.message = $inputs[1].value;
         note.status = 'open';
         note.taskdate = $inputs[7].value;
-        let n = new model.Note(note);
+        let n = model.Note(note);
         n.addNote();
 
     });
 
     $("#date-picker").datepicker({
         showOn: "button",
-        buttonImage: "../public/images/calendar.png",
+        buttonImage: "/images/calendar.png",
         buttonImageOnly: true,
         buttonText: "Select date",
         dateFormat: 'dd/mm/yy'
     });
 
-    // $(document).on('click', '.selection', (event) =>{
-    //     routes.importance = event.target.value;
-    // });
 
     $("body").on("click", ".selection", (event) => {
         event.preventDefault();
         note.importance = event.target.value;
     });
 
-    $("body").on("change", ".todo-list", (event) => {
+
+    $("#sort-taskdate").click((event) => {
         event.preventDefault();
-        let pp = event.currentTarget.children[0].innerText;
-        alert('checkbox' + pp + 'clicked');
+        sorting.sortByTaskDate;
     });
+
+    $("#sort-creationdate").on("click",((event) => {
+        event.preventDefault();
+
+
+    }));
+
+    $("#sort-importance").on("click",((event) => {
+        event.preventDefault();
+
+    }));
+
+    $("#show-finished").on("click",((event) => {
+        event.preventDefault();
+
+    }));
+
+    function sortByFinishDate(n1, n2) {
+        return n1.taskDate - n2.taskDate;
+    }
 
     function updateNote() {
 
