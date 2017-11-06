@@ -1,9 +1,7 @@
-var storage = require('./storage.js');
+//import {default as localstore} from 'localstorage.js';
 
+class Sorting {
 
-class SortAndStore {
-
-    // noinspection JSUnusedLocalSymbols
     sortByFinishDate(n1, n2) {
         // storage.retrieveAll();
         return n1.taskDate - n2.taskDate;
@@ -31,10 +29,20 @@ class SortAndStore {
         sessionStorage.setItem(name, JSON.stringify(storageItem));
     }
 }
+class AppLocalStorage {
 
-class Note {
+    fetchAppColors(){
+       // localstore.retrieveAppColors();
+    }
+
+    saveAppColors(cssClass){
+        //localstore.storeAppColors(cssClass);
+    }
+}
+class Note extends AppLocalStorage{
 
     constructor(...params) {
+        super();
 
         let pp = params[0];
         this.title = params[0].title;
@@ -57,7 +65,7 @@ class Note {
     }
 }
 
-module.exports = {Note: Note, SortAndStore : new SortAndStore};
+module.exports = {Note: Note, AppStorage: AppLocalStorage, Sorting : new Sorting};
 
 //
 // function initStorage(name) {

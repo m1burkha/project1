@@ -1,7 +1,6 @@
-import {model} from '../services/modeljs';
-import {sorting} from '../controllers/controller-index.js';
+import {default as model} from '../client-services/model.js';
 
-(function ($) {
+export default (function ($) {
 
     let note = {};
 

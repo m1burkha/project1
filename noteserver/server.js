@@ -1,12 +1,12 @@
 var http = require('http');
 var express = require('express');
 var exphbs = require('express-hbs');
-var hbsHelpers = require('./utils/helpers.js');
-var hbs = exphbs.create({
-    defaultLayout: 'main',
-    helpers: hbsHelpers
-});
-hbsHelpers.registerHelper(hbs);
+//var hbsHelpers = require('./utils/helpers.js');
+// var hbs = exphbs.create({
+//     defaultLayout: 'main',
+//     helpers: hbsHelpers
+// });
+//hbsHelpers.registerHelper(hbs);
 var path = require('path');
 // var engines = require('consolidate');
 var logger = require('morgan');
@@ -16,15 +16,16 @@ var bodyParser = require('body-parser');
 var app = express();
 
 // view engine setup
-app.engine('hbs', hbs.express4());
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+//app.engine('hbs', hbs.express4());
+app.set('html', path.join(__dirname, '/html'));
+//app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(__dirname + '/public/html'));
 
 //Routers
 app.use('/', require('./routes/route-index.js'));

@@ -1,8 +1,8 @@
-const store = require('../services/storage.js');
-const model = require('../services/model.js');
+const store = require('../services/storageDB.js');
+const model = require('../public/client-services/model.js');
 
 module.exports.createNote = function (req, res) {
-    res.render('createnote');
+    res.sendFile('/createnote.html');
 };
 
 module.exports.storeNote = function (req, res) {

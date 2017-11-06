@@ -1,5 +1,5 @@
-var storage = require('../services/storage');
-var sorting = require('../services/model');
+var storage = require('../services/storageDB');
+var sorting = require('../public/client-services/model');
 
 var notes = {
     notelist:[
@@ -11,7 +11,7 @@ var notes = {
 module.exports.showIndex = function (req, res) {
 
     console.log('noteslist',notes);
-    res.render('index', {notelist: notes.notelist});
+    res.sendFile('/index.html', {notelist: notes.notelist});
 
 };
 
