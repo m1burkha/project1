@@ -28,10 +28,12 @@ router.route('/')
 router.route('/:id')
     .get(function(req,res) {
         controller.findNote(req, res);
-        //res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
+        res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
+        res.end();
     })
     .put(function(req,res) {
         controller.updateNote(req.param('id'), res);
+        res.end();
     });
 
 module.exports = router;

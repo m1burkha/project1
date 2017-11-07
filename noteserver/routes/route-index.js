@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
 
 // fetch the notelist
 router.get('/', function(req, res) {
-     //controller.retrieveNotes(req,res);
     res.sendFile('/index.html',  {root: path.join(__dirname, '../public/html')});
+
 });
 module.exports = router;

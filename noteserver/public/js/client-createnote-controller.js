@@ -1,4 +1,3 @@
-//import {default as model} from '../client-services/model.js';
 
 ;(function ($) {
 

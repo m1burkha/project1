@@ -15,7 +15,7 @@
 
     <main class=" main-content flex-content">
         <div class="flex-buttons ">
-            <a id="createnote"  class="button-styles" type="button" href="/createnote">Create new note</a>
+            <a id="createnote"  class="button-styles" type="button" href="createnote">Create new note</a>
             <select name="app-cplor" id="dropdown-color">
                 <option value="1">Black and White</option>
                 <option value="2r">Color</option>
@@ -35,10 +35,10 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 <script id="note-list" type="text/x-handlebars-template">
-    {{#if notelist}}
-    {{#each notelist }}
-    <div class="flex-list todo-list">
-        <label><input type="checkbox" class="taskstatus">{{taskDate}}</label>
+    {{#if this}}
+    {{#each this }}
+    <div id="{{id}}" class="flex-list todo-list">
+        <label><input type="checkbox" class="taskstatus">{{taskDate}} {{#ifcompleted status }}finished{{/ifcompleted}}</label>
         <div class="flex-list">
             <div class="flex-list">
                 <span>{{title}}</span>
@@ -55,7 +55,6 @@
 </script>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script src="../utils/handlebars-helpers.js"></script>
 <script type="module" src="../js/client-index-controller.js"></script>
 </body>
 </html>
