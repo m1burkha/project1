@@ -1,18 +1,19 @@
-const store = require('../services/storageDB.js');
-const model = require('../public/client-services/model.js');
+const store = require('../services/storageDB');
 
-module.exports.createNote = function (req, res) {
-    res.sendFile('/createnote.html');
+// create a new note
+
+// save the newly created note
+module.exports.storeNote = function (creatednote) {
+    store.storeNote('newnote',creatednote);
 };
-
-module.exports.storeNote = function (req, res) {
-    const note = new model.Note();
-    store.storeNote()
-}
-
+//update and save the selected note
 module.exports.updateNote = function (req, res) {
-    const id = req.params.id;
-    //store.up
-}
-
+    console.log('update note by id: ', res,params.id);
+    store.updateNote(req, res);
+};
+// find the selected note
+module.exports.findNote = function (req, res) {
+    console.log('find note by id: ', req.params);
+    store.findNote(req , res);
+};
 

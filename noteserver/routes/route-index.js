@@ -1,20 +1,18 @@
-var router = require('express').Router({
+let express = require('express');
+let path = require('path');
+let router = express.Router({
     mergeParams: true
 });
-var controller = require('../controllers/controller-index.js');
+let controller = require('../controllers/controller-index.js');
 
-router.get('/', function (req, res) {
-    controller.retrieveNotes();
-    controller.showIndex(req, res);
+router.use(function (req, res, next) {
+    console.log('router-index request method and url: ', req.method, req.url);
+    next();
 });
-router.post('/', function (req, res) {
-    console.log(req);
-    res.send('Form submitted');
-    res.end();
 
+// fetch the notelist
+router.get('/', function(req, res) {
+     //controller.retrieveNotes(req,res);
+    res.sendFile('/index.html',  {root: path.join(__dirname, '../public/html')});
 });
-// router.get('/123', function (req,res) {
-//     controller.sortByTaskDate;
-// })
-
 module.exports = router;

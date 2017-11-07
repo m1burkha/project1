@@ -1,37 +1,38 @@
-var router = require('express').Router({
+let express = require('express');
+let path = require('path');
+let router = express.Router({
     mergeParams: true
 });
 
+
+// reference to the server controller
 const controller = require('../controllers/controller-createnote.js');
 
-// router.get('/',function (req, res) {
-//     console.log('in the create routes route', req.path);
-//     //res.send('You want to edit ' + req.params)
-//     res.render('createnote');
-// });
 
+router.use(function (req, res, next) {
+   console.log('router-createnote request method and url: ', req.method, req.url);
+   next();
+});
+//routing to the create note page , method GET , POST
 router.route('/')
-    .get(function (req, res) {
-        controller.createNote(req, res);
+    .get(function(req, res) {
+        res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
     })
-    .post(function (req, res) {
+    .post(function(req, res){
         controller.storeNote(req, res);
+        res.end();
+        //res.status(301).redirect('/index.html', {root: path.join(__dirname, '../public/html')});
     });
 
-router.put('/:id', function (req, res) {
-    controllerres.send('the id updated' + req.params.id);
-    res.end();
-});
+// retrieve / find the selected note, with a specific id, method GET, POST
+router.route('/:id')
+    .get(function(req,res) {
+        controller.findNote(req, res);
+        //res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
+    })
+    .put(function(req,res) {
+        controller.updateNote(req.param('id'), res);
+    });
 
-
-//});
 module.exports = router;
 
-// module.exports = function (router) {
-//
-//     router.get('/createnote').get(function (req, res) {
-//         console.log('in the create routes route');
-//         res.send('You want to edit ' + req.params)
-//     });
-//
-// };

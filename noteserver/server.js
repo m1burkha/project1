@@ -1,31 +1,40 @@
-var http = require('http');
-var express = require('express');
-var exphbs = require('express-hbs');
-//var hbsHelpers = require('./utils/helpers.js');
-// var hbs = exphbs.create({
-//     defaultLayout: 'main',
-//     helpers: hbsHelpers
-// });
-//hbsHelpers.registerHelper(hbs);
-var path = require('path');
-// var engines = require('consolidate');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let http = require('http');
+let express = require('express');
+let exphbs = require('express-hbs');
+let path = require('path');
+// let hbsHelpers = require('./public/utils/handlebars-helpers');
+let hbs = exphbs.create({
+    defaultLayout: 'main',
+    // helpers: hbsHelpers
+});
+// hbsHelpers.registerHelper(hbs);
 
-var app = express();
+// var engines = require('consolidate');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+
+let app = express();
 
 // view engine setup
-//app.engine('hbs', hbs.express4());
+app.engine('hbs', hbs.express4());
 app.set('html', path.join(__dirname, '/html'));
-//app.set('view engine', 'hbs');
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(express.static(__dirname + '/public/html'));
+app.use(express.static(path.join(__dirname + '/public/html'), {index: false, redirect: false}));
+
+// app.get("/", function(req, res){
+//     res.sendFile("/index.html",  {root: __dirname + '/public/'});
+// });
+// app.get("/createnote", function(req, res){
+//     res.sendFile("/createnote.html",  {root: __dirname + '/public/html'});
+// });
+
 
 //Routers
 app.use('/', require('./routes/route-index.js'));
@@ -33,7 +42,7 @@ app.use('/createnote', require('./routes/route-createnote.js'));
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -50,7 +59,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-var server = app.listen(3004, function () { // callback to console as info to user
+let server = app.listen(3004, function () { // callback to console as info to user
     console.log('Sever running at http://localhost' + server.address().port)
 });
 module.exports = app;

@@ -16,7 +16,7 @@
     <div class="topbar"></div>
     <aside class="leftbar"></aside>
     <section class="main-content">
-        <form id="formnote" class="flex-form">
+        <form id="formnote" class="flex-form" method="post" action="/createnote">
             <div class="flex-row note">
                 <label for="title">Title</label>
                 <input id="title" type="text">
@@ -28,11 +28,11 @@
             <div class="flex-row note">
                 <label>Wichtigkeit</label>
                 <div class=" flex-row importance">
-                    <input class="selection" type="image" src="../assets/images/bolt-black.png" value="1" name="image1"  height="30" width="15">
-                    <input class="selection" type="image" src="../assets/images/bolt-black.png" value="2" name="image2"  height="30" width="15">
-                    <input class="selection" type="image" src="../assets/images/bolt-black.png" value="3" name="image3"  height="30" width="15">
-                    <input class="selection" type="image" src="../assets/images/bolt-black.png" value="4" name="image4"  height="30" width="15">
-                    <input class="selection" type="image" src="../assets/images/bolt-black.png" value="5" name="image5"  height="30" width="15">
+                    <input class="selection" type="image" src="../images/bolt-black.png" value="1" name="image1"  height="30" width="15">
+                    <input class="selection" type="image" src="../images/bolt-black.png" value="2" name="image2"  height="30" width="15">
+                    <input class="selection" type="image" src="../images/bolt-black.png" value="3" name="image3"  height="30" width="15">
+                    <input class="selection" type="image" src="../images/bolt-black.png" value="4" name="image4"  height="30" width="15">
+                    <input class="selection" type="image" src="../images/bolt-black.png" value="5" name="image5"  height="30" width="15">
                 </div>
             </div>
             <div class="flex-row note">
@@ -55,7 +55,6 @@
     <aside class="rightbar"></aside>
     <footer class="footer-content"></footer>
 </div>
-<script src="../scripts/list.js"></script>
-<script type="module" src="../js/controller.js"></script>
+<script type="module" src="../js/client-createnote-controller.js"></script>
 </body>
 </html>

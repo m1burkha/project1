@@ -1,17 +1,19 @@
 
-const appLocalStorage = JSON.parse(localStorage.getItem("notelist") || "[ ]");
+const appColorStorage = JSON.parse(localStorage.getItem("appcolor") || "[ ]");
 
-function retrieveAppColors(storageName){
-    return JSON.parse(localStorage.getItem(storageName));
+class AppStorage {
+
+    retrieveAppColors(storageName){
+        return JSON.parse(localStorage.getItem('appcolor'));
+    }
+
+    persist(storecolor){
+        localStorage.setItem('appcolor', JSON.stringify(storecolor));
+    }
+
+    storeAppColors(cssClass) {
+        appLocalStorage.push(cssClass);
+        persist(storageName, appColorStorage);
+    }
 }
-
-function persist(storageName, tostorage){
-    localStorage.setItem(storageName, JSON.stringify(tostorage));
-}
-
-function storeAppColors(storageName,cssClass) {
-    appLocalStorage.push(cssClass);
-    persist(storageName, appLocalStorage);
-}
-
-export default {storeAppColors,retrieveAppColors};
+export default {AppStorage};
