@@ -4,7 +4,7 @@
         notelist: [
             {
                 id: 1,
-                title: 'Hello donkey',
+                title: 'My shopping list',
                 taskDate: '27.05.2017',
                 message: 'to go shopping',
                 importance: 3,
@@ -12,7 +12,7 @@
             },
             {
                 id: 2,
-                title: 'Hello donkey2',
+                title: 'Special visit',
                 taskDate: '15.08.2017',
                 message: 'go visit teddy',
                 importance: 2,
@@ -20,7 +20,7 @@
             },
             {
                 id: 4,
-                title: 'Hello donkey44444',
+                title: 'New activity',
                 taskDate: '12.06.2017',
                 message: 'swim school',
                 importance: 1,
