@@ -33,18 +33,14 @@
 
         registerhandlebars();
 
-        // $.ajax({
-        //     method: "GET",
-        //     url:"/",
-        //     dataType : "json",
-        //     data: notelist,
-        //     success: "done"
-        //
-        // }).done((data) => {
-        //     console.log(data);
-        //     notelist.concat(JSON.stringify(data));
-        //
-        // });
+        $.ajax({
+            method: "GET",
+            url: "/",
+            data: data ? JSON.stringify(data): []
+        }).done((data) => {
+            console.log(data);
+            //notelist.concat(JSON.stringify(data));
+        });
     });
 
     $("#createnote").click(function(event) {
@@ -83,6 +79,7 @@
         $.ajax({
             method: "GET",
             url: "/createnote/:" + divId,
+            data: "note"
         }).done((data) => {
 
         })

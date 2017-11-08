@@ -1,10 +1,6 @@
 const Datastore = require('nedb');
 const db = new Datastore({filename: './data/notelist.db', autoload: true});
 
-function createnote(... params) {
-    //this.id =
-}
-
 // retrieve the todolist from the DB
 function retrieveAll(callback) {
     console.log('retrieve all db connection');
@@ -15,7 +11,7 @@ function retrieveAll(callback) {
 }
 
 // find the selected note from the Db
-function findNote(req, res, callback) {
+function findNote(id, res, callback) {
     console.log(`find this id: ${req.params.id} from the db connection`);
 
     db.findOne({id: req.params.id}, function (err, docs) {

@@ -14,6 +14,6 @@ module.exports.updateNote = function (req, res) {
 // find the selected note
 module.exports.findNote = function (req, res) {
     console.log('find note by id: ', req.params.id);
-    store.findNote(req , res);
+    store.findNote(req.params.id , res);
 };
 
