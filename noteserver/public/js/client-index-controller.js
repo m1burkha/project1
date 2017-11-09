@@ -28,22 +28,24 @@
             }
         ]
     };
+    let mylist = [];
+    mylist = mylist.concat(notes.notelist);
 
     $(document).ready(function () {
 
-        registerhandlebars();
-
         $.ajax({
-            method: "GET",
+            method: "post",
             url: "/",
-            data: data ? JSON.stringify(data): []
+            data: "notelist"
         }).done((data) => {
             console.log(data);
-            //notelist.concat(JSON.stringify(data));
-        });
+            mylist = mylist.concat(data);
+        })
+
+        registerhandlebars();
     });
 
-    $("#createnote").click(function(event) {
+    $("#createnote").click(function (event) {
         event.stopPropagation();
     });
 
@@ -105,7 +107,7 @@
         });
 
         const template = Handlebars.compile($("#note-list").html());
-        $("#item-list").append(template(notes.notelist));
+        $("#item-list").append(template(mylist));
 
     }
 

@@ -2,8 +2,7 @@ const Datastore = require('nedb');
 const db = new Datastore({filename: './data/notelist.db', autoload: true});
 
 // retrieve the todolist from the DB
-function retrieveAll(callback) {
-    console.log('retrieve all db connection');
+function retrieveAll(req, callback) {
     db.find({}, function (err, docs) {
         console.log('retrieving the note list from the DB');
         callback(err, docs);
@@ -15,7 +14,7 @@ function findNote(id, res, callback) {
     console.log(`find this id: ${req.params.id} from the db connection`);
 
     db.findOne({id: req.params.id}, function (err, docs) {
-        if(callback){
+        if (callback) {
             callback(err, docs);
         }
     });
@@ -24,8 +23,8 @@ function findNote(id, res, callback) {
 // store / save the newly created note
 function storeNote(req, res, callback) {
     console.log('store note db connection');
-    console.log('res.children',req);
-    console.log('res.children',res.body);
+    console.log('res.children', req);
+    console.log('res.children', res.body);
 
     db.insert(res.body, function (err, newDoc) {
         if (callback) {
@@ -37,7 +36,7 @@ function storeNote(req, res, callback) {
 // update and save the seleced note to the DB
 function updateNote(req, res, callback) {
     console.log('update db connection');
-    let note = findNote(res.param('id'));
+    let note = findNote(req.params.id);
     if (note !== null) {
         db.update({id: note.id},
             {
