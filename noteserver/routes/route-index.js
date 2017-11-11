@@ -15,11 +15,5 @@ routerIndex.use(function (req, res, next) {
 // fetch the notelist
 routerIndex.post('/', function(req, res) {
     controller.retrieveNotes(req, res);
-    //res.sendFile('/index.html',  {root: path.join(__dirname, '../public/html')});
-    //console.log('req', req.body.notelist);
-    // res.render('/index.html',  {
-    //     root: path.join(__dirname, '../public/html'),
-    //     notelist: req.body.notelist});
-
 });
 module.exports = routerIndex;

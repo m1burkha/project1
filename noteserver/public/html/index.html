@@ -22,9 +22,9 @@
             </select>
         </div>
         <div class="flex-buttons button-sorter">
-            <button id="sort-taskdate" class="button-styles" value="1">By finish Date</button>
+            <button id="sort-by-finishdate" class="button-styles" value="1">By finish Date</button>
             <button id="sort-creationdate" class="button-styles" value="2">By created Date</button>
-            <button id="sort-importance" class="button-styles" value="3">By Importance</button>
+            <button id="sort-priority" class="button-styles" value="3">By Priority</button>
             <button id="show-finished" class="button-styles" value="4">Show finished</button>
         </div>
         <div id="item-list" class="notelist"></div>
@@ -37,12 +37,12 @@
 <script id="note-list" type="text/x-handlebars-template">
     {{#if this}}
     {{#each this }}
-    <div id="{{id}}" class="flex-list todo-list">
+    <div id="{{_id}}" class="flex-list todo-list">
         <label><input type="checkbox" class="taskstatus">{{taskDate}} {{#ifcompleted status }}finished{{/ifcompleted}}</label>
         <div class="flex-list">
             <div class="flex-list">
                 <span>{{title}}</span>
-                {{repeat importance}}
+                {{repeat priority}}
             </div>
             <textarea name="" id="notetext" rows="5" placeholder="Some text here...." readonly>{{message}}</textarea>
         </div>
@@ -54,6 +54,7 @@
     {{/if}}
 </script>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<!--<script src="../lib/jquery-1.12.3.min.js" type="text/javascript"></script>-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="module" src="../js/client-index-controller.js"></script>
 </body>

@@ -21,18 +21,15 @@ router.route('/')
     .post(function(req, res){
         controller.storeNote(req, res);
         res.end();
-        //res.status(301).redirect('/index.html', {root: path.join(__dirname, '../public/html')});
     });
 
 // retrieve / find the selected note, with a specific id, method GET, POST
 router.route('/:id')
     .get(function(req,res) {
         controller.findNote(req, res);
-        res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
-        res.end();
     })
-    .put(function(req,res) {
-        controller.updateNote(req.param('id'), res);
+    .post(function(req,res) {
+        controller.updateNote(req.params.id, res);
         res.end();
     });
 

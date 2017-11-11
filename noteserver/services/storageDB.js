@@ -10,22 +10,17 @@ function retrieveAll(req, callback) {
 }
 
 // find the selected note from the Db
-function findNote(id, res, callback) {
-    console.log(`find this id: ${req.params.id} from the db connection`);
-
-    db.findOne({id: req.params.id}, function (err, docs) {
-        if (callback) {
-            callback(err, docs);
-        }
+function findNote(id, callback) {
+    db.findOne({_id: id}, function (err, docs) {
+        console.log(`retrieve note with id: ${id} from db`);
+        callback(err, docs);
     });
 }
+
 
 // store / save the newly created note
 function storeNote(req, res, callback) {
     console.log('store note db connection');
-    console.log('res.children', req);
-    console.log('res.children', res.body);
-
     db.insert(res.body, function (err, newDoc) {
         if (callback) {
             callback(err, newDoc);

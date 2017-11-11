@@ -55,11 +55,11 @@ General styling
     justify-content: flex-end;
 }
 
-.importance {
+.priority {
     flex: 3;
 }
 
-.importance input {
+.priority input {
     cursor: pointer;
     margin: 2px 6px 2px 6px;
 }
