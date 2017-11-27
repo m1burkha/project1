@@ -39,6 +39,7 @@ app.get("/", function(req, res){
 //Routers
 app.use('/', require('./routes/route-index.js'));
 app.use('/createnote', require('./routes/route-createnote.js'));
+app.use('/createnote/:id/', require('./routes/route-createnote.js'));
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {

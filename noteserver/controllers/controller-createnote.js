@@ -14,7 +14,7 @@ module.exports.storeNote = function (creatednote) {
 * @res, the response 200, 404, 500 etc
 * */
 module.exports.updateNote = function (req, res) {
-    console.log('update note by id: ', res,params.id);
+    console.log('update note by id: ', req.params.id);
     store.updateNote(req, res);
 };
 
@@ -24,7 +24,7 @@ module.exports.updateNote = function (req, res) {
 * @ res , the response of the found task or empty
 * */
 module.exports.findNote = function (req, res) {
-    console.log('find note by id: ', req.params.id);
+    console.log('find note by id ', req.params.id);
     store.findNote(req.params.id , function(err, note){
         res.json(note);
     });

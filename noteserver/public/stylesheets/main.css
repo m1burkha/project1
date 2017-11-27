@@ -4,6 +4,9 @@ Flex styling for Note content
 body {
     background-color: #d8dab9;
 }
+.bodyColor {
+    background-color: #4eb7da;
+}
 
 .flex-content {
     display: flex;
@@ -65,17 +68,11 @@ General styling
     height: 45px;
 }
 
-.button-sorter {
-    /*background-color: burlywood;*/
-
-}
-
 .button-sorter > button:nth-of-type(4) {
     margin-left: auto;
 }
 
 .todo-list {
-    /*background-color: cornflowerblue;*/
     box-sizing: border-box;
     padding: 5px 0px 5px 0px;
     align-items: flex-end;

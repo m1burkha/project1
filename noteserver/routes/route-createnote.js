@@ -23,13 +23,18 @@ router.route('/')
         res.end();
     });
 
-// retrieve / find the selected note, with a specific id, method GET, POST
-router.route('/:id')
+
+// retrieve / find the selected note, with a specific id, method GET, PUT
+router.route('/:id/')
     .get(function(req,res) {
         controller.findNote(req, res);
+        //res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
+
     })
-    .post(function(req,res) {
-        controller.updateNote(req.params.id, res);
+    .put(function(req,res) {
+        console.log("put with params", req.params)
+        controller.updateNote(req, res);
+        res.send(req.params);
         res.end();
     });
 

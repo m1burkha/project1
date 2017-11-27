@@ -14,34 +14,22 @@
     $("#formnote").submit((event) => {
         event.preventDefault();
 
-        let $inputs = $('#formnote :input');
+        let $inputs = $("#formnote :input");
 
         note.title = $inputs[0].value;
         note.message = $inputs[1].value;
         note.status = 'open';
-        let r = Date.parse($inputs[7]);
         note.taskDate = $inputs[7].value;
-        if (note.priority == null)
+        if (note.priority === null)
             note.priority = 0;
-        localStorage
+
         $.ajax({
             method: "POST",
             url: "/createnote",
             data: note,
-            success: ((data) => {
+            success: (() => {
                 window.location.href = '/';
             })
-
-            //    success: function(data, textStatus) {
-            //     if (data.redirect) {
-            //         // data.redirect contains the string URL to redirect to
-            //         window.location.href = data.redirect;
-            //     }
-            //     else {
-            //         // data.form contains the HTML for the replacement form
-            //         $("#myform").replaceWith(data.form);
-            //     }
-            // }
         })
     });
 

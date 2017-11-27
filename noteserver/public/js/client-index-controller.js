@@ -1,5 +1,5 @@
 import sorting from "../client-services/sortlist.js";
-
+import storeAppColor from "../client-services/localstorage.js";
 /*
 * The client-index-controller listens to the user interaction on the index page
 * Each time the page is refreshed, navigated to the task list is fetched from the DB
@@ -15,47 +15,7 @@ import sorting from "../client-services/sortlist.js";
 * */
 
 ;(function ($) {
-
-    // const notes = {
-    //     list: [
-    //         {
-    //             _id: 1,
-    //             title: 'My shopping list',
-    //             taskDate: '27-05-2017',
-    //             message: 'to go shopping',
-    //             priority: 3,
-    //             status: 'finished'
-    //         },
-    //         {
-    //             _id: 2,
-    //             title: 'Special visit',
-    //             taskDate: '15-08-2017',
-    //             message: 'go visit teddy',
-    //             priority: 2,
-    //             status: 'open'
-    //         },
-    //         {
-    //             _id: 4,
-    //             title: 'New activity',
-    //             taskDate: '12-06-2017',
-    //             message: 'swim school',
-    //             priority: 1,
-    //             status: 'open'
-    //         },
-    //         {
-    //             _id: 5,
-    //             title: 'Meeting at mall',
-    //             taskDate: '14-06-2017',
-    //             message: 'Meet up with friend from school',
-    //             priority: 1,
-    //             status: 'finished'
-    //         }
-    //
-    //     ]
-    // };
-
     let notelist = [];
-    // notelist = notelist.concat(notes.list);
     let togglelist = false;
 
     $(document).ready(function () {
@@ -76,10 +36,27 @@ import sorting from "../client-services/sortlist.js";
         event.stopPropagation();
     });
 
+    $("#dropdown-color").change(function () {
+
+        let saveColor = new storeAppColor.AppStorage();
+        let index = parseInt($(this).val().valueOf());
+        switch (index) {
+            case 1:
+                saveColor.deleteAppColors();
+                document.querySelector('body').classList.remove("bodyColor");
+                break;
+            case 2:
+                saveColor.storeAppColors("bodyColor");
+                document.querySelector('body').classList.add("bodyColor");
+                break;
+        }
+
+    });
+
     $("#sort-by-finishdate").click((event) => {
         event.preventDefault();
         let toggle = togglestate();
-        notelist = notelist.sort(sorting.sortTaskListWithProperty(notelist,'finished', toggle));
+        notelist = notelist.sort(sorting.sortTaskListWithProperty(notelist, 'finished', toggle));
         $("#item-list").empty();
         rendernotelist();
         event.stopPropagation();
@@ -88,7 +65,7 @@ import sorting from "../client-services/sortlist.js";
     $("#sort-creationdate").on("click", ((event) => {
         event.preventDefault();
         let toggle = togglestate();
-        notelist = notelist.sort(sorting.sortTaskListWithProperty(notelist,'taskDate',toggle));
+        notelist = notelist.sort(sorting.sortTaskListWithProperty(notelist, 'taskDate', toggle));
         $("#item-list").empty();
         rendernotelist();
         event.stopPropagation();
@@ -113,8 +90,28 @@ import sorting from "../client-services/sortlist.js";
     }));
 
     $("body").on("click", ".taskstatus", (event) => {
-        event.preventDefault();
 
+        // var $checkbox = $(this).find(':checkbox');
+        // $checkbox.prop('checked', !$checkbox[0].checked);
+        let divId = event.target.parentNode.id;
+        $.ajax({
+            method: "PUT",
+            url: `/createnote/:${divId}`,
+            data: JSON.stringify("note")
+        }).done((data) => {
+            window.location = "/createnote/";
+        });
+
+
+        // if(event.target.checked){
+        //     event.target.labels[0].childNodes[1].data +=" finished";
+        //     event.target.defaultChecked = true;
+        //
+        // }else{
+        //     event.target.labels[0].childNodes[1].data.splice(-1, 9);
+        //     event.target.defaultChecked = false;
+        // }
+        event.preventDefault();
 
         event.stopPropagation();
     });
@@ -125,17 +122,18 @@ import sorting from "../client-services/sortlist.js";
         let divId = event.target.parentNode.id;
         $.ajax({
             method: "GET",
-            url: `/createnote/${divId}`,
+            url: `/createnote/${divId}/`,
             data: 'note'
         }).done((data) => {
             console.log('selected note', data);
-            window.location.href = `/createnote/:${data}`;
+            if (data) {
+                let note = JSON.stringify(data);
+                window.location.replace(`/createnote/:${note}`);
+                //window.location = (`/createnote/: ${divId}?=${note}`);
+                //window.location = (`/createnote/:${divId}`);
+            }
         })
     });
-
-    // getOrder(id) {
-    //     return ajaxUtil.ajax("GET", `/orders/${id}`, undefined, {authorization: "Bearer " + valueStorage.getItem(tokenKey)});
-    // }
 
     /*
     * Registers the handlebar helpers for the index page
@@ -170,7 +168,7 @@ import sorting from "../client-services/sortlist.js";
     }
 
     function togglestate() {
-        return togglelist = ! togglelist;
+        return togglelist = !togglelist;
     }
 
 })(jQuery);

@@ -4,7 +4,12 @@ const appColorStorage = JSON.parse(localStorage.getItem("appcolor") || "[ ]");
 class AppStorage {
 
     retrieveAppColors(storageName){
-        return JSON.parse(localStorage.getItem('appcolor'));
+        return appColorStorage;
+    }
+
+    deleteAppColors(){
+        localStorage.removeItem("appcolor");
+        appColorStorage.length = 0;
     }
 
     persist(storecolor){
@@ -12,8 +17,8 @@ class AppStorage {
     }
 
     storeAppColors(cssClass) {
-        appLocalStorage.push(cssClass);
-        persist(storageName, appColorStorage);
+        appColorStorage.push(cssClass);
+        this.persist(appColorStorage);
     }
 }
 export default {AppStorage};
