@@ -28,13 +28,14 @@ router.route('/')
 router.route('/:id/')
     .get(function(req,res) {
         controller.findNote(req, res);
-        //res.sendFile('/createnote.html', {root: path.join(__dirname, '../public/html')});
-
+        console.log("req params",req.params);
+        console.log("req query",res.query);
+        //res.sendFile('createnote.html', {root: path.join(__dirname, '../public/html')});
     })
-    .put(function(req,res) {
-        console.log("put with params", req.params)
+    .post(function(req,res) {
+        console.log("post with params", req.params);
         controller.updateNote(req, res);
-        res.send(req.params);
+        //res.send(req.params);
         res.end();
     });
 

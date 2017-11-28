@@ -1,3 +1,4 @@
+import storeAppColor from "../client-services/localstorage.js";
 /*
 * The client-create-note-controoler listens to the users interactions
 *
@@ -10,6 +11,7 @@
 ;(function ($) {
 
     let note = {};
+    storeAppColor.AppStorage.retrieveAppColors();
 
     $("#formnote").submit((event) => {
         event.preventDefault();

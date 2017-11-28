@@ -16,7 +16,7 @@
     <main class=" main-content flex-content">
         <div class="flex-buttons ">
             <a id="createnote"  class="button-styles" type="button" href="/createnote">Create new note</a>
-            <select name="app-cplor" id="dropdown-color">
+            <select name="app-cplor" id="dropdown-color" class="button-styles" >
                 <option value="1">Black and White</option>
                 <option value="2">Color</option>
             </select>
@@ -38,7 +38,7 @@
     {{#if this}}
     {{#each this }}
     <div id="{{_id}}" class="flex-list todo-list">
-        <label><input type="checkbox" class="taskstatus">{{taskDate}} {{#ifcompleted status }}finished{{/ifcompleted}}</label>
+        <label><input type="checkbox" class="taskstatus" {{#ifchecked status}}{{/ifchecked}}>{{taskDate}} {{#ifcompleted status }}finished{{/ifcompleted}}</label>
         <div class="flex-list">
             <div class="flex-list">
                 <span>{{title}}</span>
@@ -54,7 +54,6 @@
     {{/if}}
 </script>
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<!--<script src="../lib/jquery-1.12.3.min.js" type="text/javascript"></script>-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="module" src="../js/client-index-controller.js"></script>
 </body>

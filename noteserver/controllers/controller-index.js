@@ -11,6 +11,9 @@ module.exports.retrieveNotes = function (req, res) {
         res.json(notelist || {});
     });
 };
-
+module.exports.updateNoteStatus = function (req, res) {
+    console.log("update checkbos status , id , status", req.params.id, req.query.status);
+    storage.updateNoteStatus(req, res);
+};
 
 

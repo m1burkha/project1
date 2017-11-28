@@ -16,4 +16,7 @@ routerIndex.use(function (req, res, next) {
 routerIndex.post('/', function(req, res) {
     controller.retrieveNotes(req, res);
 });
+routerIndex.post('/:id/', function(req, res) {
+     controller.updateNoteStatus(req, res);
+});
 module.exports = routerIndex;

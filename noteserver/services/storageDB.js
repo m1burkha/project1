@@ -30,24 +30,38 @@ function storeNote(req, res, callback) {
 
 // update and save the seleced note to the DB
 function updateNote(req, res, callback) {
-    console.log('update db connection');
-    let note = findNote(req.params.id);
-    if (note !== null) {
-        db.update({id: note.id},
-            {
-                $set: {
-                    title: note.title,
-                    taskDate: note.taskDate,
-                    message: note.message,
-                    importance: note.importance,
-                    status: note.status
-                }
-            },
-            {multi: true},
-            function (err, docs) {
+    console.log('update db connection', req.params, req.query);
+    db.update({_id: req.params.id},
+        {
+            $set: {
+                title: res.body.title,
+                taskDate: res.body.taskDate,
+                message: res.body.message,
+                importance: res.body.importance,
+                status: res.body.status
+            }
+        },
+        {multi: true},
+        function (err, docs) {
+            if (callback) {
                 callback(err, docs);
-            });
-    }
+            }
+        });
 }
 
-module.exports = {storeNote, retrieveAll, findNote, updateNote};
+function updateNoteStatus(req, res, callback) {
+    console.log('update status db connection params, query', req.params, req.query);
+    db.update({_id: req.params.id},
+        {
+            $set: {
+                status: req.query.status
+            }
+        },
+        function (err, docs) {
+            if (callback) {
+                callback(err, docs);
+            }
+        });
+}
+
+module.exports = {storeNote, retrieveAll, findNote, updateNote, updateNoteStatus};

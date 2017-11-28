@@ -31,9 +31,6 @@ app.use(express.static(path.join(__dirname + '/public/html'), {index: false, red
 app.get("/", function(req, res){
     res.sendFile("/index.html",  {root: __dirname + '/public/html'});
 });
-// app.get("/createnote", function(req, res){
-//     res.sendFile("/createnote.html",  {root: __dirname + '/public/html'});
-// });
 
 
 //Routers

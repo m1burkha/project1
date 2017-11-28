@@ -18,6 +18,8 @@ import storeAppColor from "../client-services/localstorage.js";
     let notelist = [];
     let togglelist = false;
 
+    storeAppColor.AppStorage.retrieveAppColors();
+
     $(document).ready(function () {
 
         registerhandlebars();
@@ -30,6 +32,7 @@ import storeAppColor from "../client-services/localstorage.js";
             notelist = notelist.concat(data);
             rendernotelist(notelist);
         });
+
     });
 
     $("#createnote").click(function (event) {
@@ -91,46 +94,39 @@ import storeAppColor from "../client-services/localstorage.js";
 
     $("body").on("click", ".taskstatus", (event) => {
 
-        // var $checkbox = $(this).find(':checkbox');
-        // $checkbox.prop('checked', !$checkbox[0].checked);
-        let divId = event.target.parentNode.id;
-        $.ajax({
-            method: "PUT",
-            url: `/createnote/:${divId}`,
-            data: JSON.stringify("note")
-        }).done((data) => {
-            window.location = "/createnote/";
-        });
-
-
-        // if(event.target.checked){
-        //     event.target.labels[0].childNodes[1].data +=" finished";
-        //     event.target.defaultChecked = true;
-        //
-        // }else{
-        //     event.target.labels[0].childNodes[1].data.splice(-1, 9);
-        //     event.target.defaultChecked = false;
-        // }
-        event.preventDefault();
-
         event.stopPropagation();
+        let divId = event.target.parentNode.parentElement.id;
+        if (event.target.checked) {
+            event.target.labels[0].childNodes[1].data += " finished";
+            toggleAndSaveCheckbox(divId, "finished");
+            return;
+
+
+        } else {
+            let text = event.target.labels[0].childNodes[1].data;
+            if (text.indexOf("finished") !== -1) {
+                event.target.labels[0].childNodes[1].data = text.substring(0, (text.length - 9));
+                toggleAndSaveCheckbox(divId, "open");
+            }
+            return;
+        }
     });
 
     $("body").on("click", ".button-styles", (event) => {
         event.preventDefault();
-
+        event.stopPropagation();
         let divId = event.target.parentNode.id;
         $.ajax({
             method: "GET",
             url: `/createnote/${divId}/`,
-            data: 'note'
+            data: {}
         }).done((data) => {
             console.log('selected note', data);
             if (data) {
                 let note = JSON.stringify(data);
-                window.location.replace(`/createnote/:${note}`);
-                //window.location = (`/createnote/: ${divId}?=${note}`);
-                //window.location = (`/createnote/:${divId}`);
+                //window.location.replace(`/createnote/${divId}`);
+                window.location =`/createnote/${divId}/`; //
+                //populateform();
             }
         })
     });
@@ -157,6 +153,10 @@ import storeAppColor from "../client-services/localstorage.js";
         Handlebars.registerHelper('ifcompleted', (taskstatus) => {
             return taskstatus === 'finished' ? ' finished' : '';
         });
+
+        Handlebars.registerHelper('ifchecked', (status) => {
+            return status === 'finished' ? "checked" : '';
+        });
     }
 
     /*
@@ -169,6 +169,14 @@ import storeAppColor from "../client-services/localstorage.js";
 
     function togglestate() {
         return togglelist = !togglelist;
+    }
+
+    function toggleAndSaveCheckbox(id, status) {
+        $.ajax({
+            method: "POST",
+            url: `/${id}/?status=${status}`,
+            success: 200
+        });
     }
 
 })(jQuery);
