@@ -25,8 +25,8 @@ import storeAppColor from "../client-services/localstorage.js";
         registerhandlebars();
 
         $.ajax({
-            method: "post",
-            url: "/",
+            method: "GET",
+            url: "/notes/",
             data: "notelist"
         }).done((data) => {
             notelist = notelist.concat(data);
@@ -118,14 +118,14 @@ import storeAppColor from "../client-services/localstorage.js";
         let divId = event.target.parentNode.id;
         $.ajax({
             method: "GET",
-            url: `/createnote/${divId}/`,
+            url: `/notes/${divId}/`,
             data: {}
         }).done((data) => {
             console.log('selected note', data);
             if (data) {
                 let note = JSON.stringify(data);
                 //window.location.replace(`/createnote/${divId}`);
-                window.location =`/createnote/${divId}/`; //
+                window.location =`/createnote.html?${divId}`; //
                 //populateform();
             }
         })
@@ -174,7 +174,7 @@ import storeAppColor from "../client-services/localstorage.js";
     function toggleAndSaveCheckbox(id, status) {
         $.ajax({
             method: "POST",
-            url: `/${id}/?status=${status}`,
+            url: `/notes/${id}/?status=${status}`,
             success: 200
         });
     }

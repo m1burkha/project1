@@ -27,7 +27,7 @@ import storeAppColor from "../client-services/localstorage.js";
 
         $.ajax({
             method: "POST",
-            url: "/createnote",
+            url: "/notes",
             data: note,
             success: (() => {
                 window.location.href = '/';
