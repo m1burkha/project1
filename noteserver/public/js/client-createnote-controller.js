@@ -1,4 +1,6 @@
 import storeAppColor from "../client-services/localstorage.js";
+import http from "../client-services/http-services.js";
+import model from "../model/note.js"
 /*
 * The client-create-note-controoler listens to the users interactions
 *
@@ -12,32 +14,39 @@ import storeAppColor from "../client-services/localstorage.js";
 
     let note = {};
     storeAppColor.AppStorage.retrieveAppColors();
+    let priority = 0;
+
+    let parmsId = window.location.href.split("id=");
+
+    $(document).ready(function () {
+
+        if (parmsId[1]) {
+            http.editNoteById(parmsId[1]);
+        }
+    });
 
     $("#formnote").submit((event) => {
         event.preventDefault();
 
         let $inputs = $("#formnote :input");
+         note = new model.Note(
+            $inputs[0].value,
+            $inputs[1].value,
+            'open',
+            $inputs[7].value,
+            priority
+        );
 
-        note.title = $inputs[0].value;
-        note.message = $inputs[1].value;
-        note.status = 'open';
-        note.taskDate = $inputs[7].value;
-        if (note.priority === null)
-            note.priority = 0;
-
-        $.ajax({
-            method: "POST",
-            url: "/notes",
-            data: note,
-            success: (() => {
-                window.location.href = '/';
-            })
-        })
+        if (parmsId[1]) {
+            http.updateNoteById(parmsId[1], note);
+        } else {
+            http.submitNote(note);
+        }
     });
 
     $("body").on("click", ".selection", (event) => {
         event.preventDefault();
-        note.priority = event.target.value;
+        priority = event.target.value;
     });
 
     $("#date-picker").datepicker({

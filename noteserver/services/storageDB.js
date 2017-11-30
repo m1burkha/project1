@@ -20,8 +20,8 @@ function findNote(id, callback) {
 
 // store / save the newly created note
 function storeNote(req, res, callback) {
-    console.log('store note db connection');
-    db.insert(res.body, function (err, newDoc) {
+    console.log('store note db connection',req.body);
+    db.insert(req.body, function (err, newDoc) {
         if (callback) {
             callback(err, newDoc);
         }
@@ -30,15 +30,15 @@ function storeNote(req, res, callback) {
 
 // update and save the seleced note to the DB
 function updateNote(req, res, callback) {
-    console.log('update db connection', req.params, req.query);
+    console.log('update db connection', req.params.id, req.body);
     db.update({_id: req.params.id},
         {
             $set: {
-                title: res.body.title,
-                taskDate: res.body.taskDate,
-                message: res.body.message,
-                importance: res.body.importance,
-                status: res.body.status
+                title: req.body.title,
+                taskDate: req.body.taskDate,
+                message: req.body.message,
+                importance: req.body.importance,
+                status: req.body.status
             }
         },
         {multi: true},

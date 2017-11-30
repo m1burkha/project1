@@ -125,6 +125,10 @@ General styling
     width: auto;
     /*height: 45px;*/
 }
+.select-style {
+    height: 5.8em;
+    width: 9.6em;
+}
 
 
 

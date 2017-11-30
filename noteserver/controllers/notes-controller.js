@@ -14,6 +14,7 @@ module.exports.retrieveNotes = function (req, res) {
 module.exports.updateNoteStatus = function (req, res) {
     console.log("update checkbos status , id , status", req.params.id, req.query.status);
     storage.updateNoteStatus(req, res);
+    res.end();
 };
 
 /*
@@ -33,6 +34,7 @@ module.exports.storeNote = function (req, res) {
 module.exports.updateNote = function (req, res) {
     console.log('update note by id: ', req.params.id);
     storage.updateNote(req, res);
+    res.end();
 };
 
 /*

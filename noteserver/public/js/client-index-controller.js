@@ -1,5 +1,7 @@
 import sorting from "../client-services/sortlist.js";
 import storeAppColor from "../client-services/localstorage.js";
+import http from "../client-services/http-services.js";
+
 /*
 * The client-index-controller listens to the user interaction on the index page
 * Each time the page is refreshed, navigated to the task list is fetched from the DB
@@ -15,7 +17,7 @@ import storeAppColor from "../client-services/localstorage.js";
 * */
 
 ;(function ($) {
-    let notelist = [];
+    let notelist=[];
     let togglelist = false;
 
     storeAppColor.AppStorage.retrieveAppColors();
@@ -24,15 +26,10 @@ import storeAppColor from "../client-services/localstorage.js";
 
         registerhandlebars();
 
-        $.ajax({
-            method: "GET",
-            url: "/notes/",
-            data: "notelist"
-        }).done((data) => {
-            notelist = notelist.concat(data);
+        http.getNoteList((callback) =>{
+            notelist = [...callback];
             rendernotelist(notelist);
         });
-
     });
 
     $("#createnote").click(function (event) {
@@ -53,7 +50,6 @@ import storeAppColor from "../client-services/localstorage.js";
                 document.querySelector('body').classList.add("bodyColor");
                 break;
         }
-
     });
 
     $("#sort-by-finishdate").click((event) => {
@@ -98,15 +94,13 @@ import storeAppColor from "../client-services/localstorage.js";
         let divId = event.target.parentNode.parentElement.id;
         if (event.target.checked) {
             event.target.labels[0].childNodes[1].data += " finished";
-            toggleAndSaveCheckbox(divId, "finished");
+            http.toggleCheckBox(divId, "finished");
             return;
-
-
         } else {
             let text = event.target.labels[0].childNodes[1].data;
             if (text.indexOf("finished") !== -1) {
                 event.target.labels[0].childNodes[1].data = text.substring(0, (text.length - 9));
-                toggleAndSaveCheckbox(divId, "open");
+                http.toggleCheckBox(divId, "open");
             }
             return;
         }
@@ -116,19 +110,7 @@ import storeAppColor from "../client-services/localstorage.js";
         event.preventDefault();
         event.stopPropagation();
         let divId = event.target.parentNode.id;
-        $.ajax({
-            method: "GET",
-            url: `/notes/${divId}/`,
-            data: {}
-        }).done((data) => {
-            console.log('selected note', data);
-            if (data) {
-                let note = JSON.stringify(data);
-                //window.location.replace(`/createnote/${divId}`);
-                window.location =`/createnote.html?${divId}`; //
-                //populateform();
-            }
-        })
+        window.location =`/createnote.html?id=${divId}`;
     });
 
     /*
@@ -169,14 +151,6 @@ import storeAppColor from "../client-services/localstorage.js";
 
     function togglestate() {
         return togglelist = !togglelist;
-    }
-
-    function toggleAndSaveCheckbox(id, status) {
-        $.ajax({
-            method: "POST",
-            url: `/notes/${id}/?status=${status}`,
-            success: 200
-        });
     }
 
 })(jQuery);
