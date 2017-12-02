@@ -37,7 +37,7 @@ function updateNote(req, res, callback) {
                 title: req.body.title,
                 taskDate: req.body.taskDate,
                 message: req.body.message,
-                importance: req.body.importance,
+                priority: req.body.priority,
                 status: req.body.status
             }
         },
