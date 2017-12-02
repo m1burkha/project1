@@ -19,6 +19,9 @@ function editNoteById(id) {
                 $('#title').val(res['title']);
                 $('#description').val(res['message']);
                 $('#date-picker').val(res['taskDate']);
+                if(res['priority'] !== 0) {
+                    $(`input[value="${res['priority']}"]`).addClass("selection-border");
+                }
             }
         }
     });

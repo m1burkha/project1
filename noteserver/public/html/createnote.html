@@ -17,7 +17,7 @@
         <form id="formnote" class="flex-form">
             <div class="flex-row note">
                 <label for="title">Title</label>
-                <input id="title" type="text">
+                <input id="title" type="text" required>
             </div>
             <div class="flex-row note">
                 <label for="description">Beschreibung</label>
@@ -36,23 +36,23 @@
             <div class="flex-row note">
                 <label>Erledigt bis</label>
                 <div class="flex-row calendar">
-                    <input type="text" id="date-picker"/>
+                    <input type="text" id="date-picker" required/>
                 </div>
             </div>
             <div class="flex-row note">
                 <button id="submitnote" class="button-styles" type="submit">Speichern</button>
             </div>
             <div class="flex-row note align-button-right">
-                <button id="cancelnote" class="button-styles" type="reset">Cancel</button>
+                <button id="cancelnote" class="" type="reset">Cancel</button>
             </div>
         </form>
     </section>
     <aside class="rightbar"></aside>
     <footer class="footer-content"></footer>
 </div>
+<script src="https://jqueryvalidation.org/files/lib/jquery-1.11.1.js"></script>
 <script type="module" src="../js/client-createnote-controller.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
 </body>
 </html>

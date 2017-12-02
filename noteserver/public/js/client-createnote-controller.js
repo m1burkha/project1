@@ -47,6 +47,8 @@ import model from "../model/note.js"
     $("body").on("click", ".selection", (event) => {
         event.preventDefault();
         priority = event.target.value;
+        $(".selection").removeClass("selection-border");
+        event.target.classList.toggle("selection-border")
     });
 
     $("#date-picker").datepicker({

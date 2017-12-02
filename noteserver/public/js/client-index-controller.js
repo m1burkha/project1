@@ -55,7 +55,9 @@ import http from "../client-services/http-services.js";
     $("#sort-by-finishdate").click((event) => {
         event.preventDefault();
         let toggle = togglestate();
-        notelist = notelist.sort(sorting.sortTaskListWithProperty(notelist, 'finished', toggle));
+        let finishlist = sorting.sortByFinishDate(notelist, toggle);
+        notelist.length = 0;
+        notelist = finishlist;
         $("#item-list").empty();
         rendernotelist();
         event.stopPropagation();
@@ -95,12 +97,14 @@ import http from "../client-services/http-services.js";
         if (event.target.checked) {
             event.target.labels[0].childNodes[1].data += " finished";
             http.toggleCheckBox(divId, "finished");
+            location.reload();
             return;
         } else {
             let text = event.target.labels[0].childNodes[1].data;
             if (text.indexOf("finished") !== -1) {
                 event.target.labels[0].childNodes[1].data = text.substring(0, (text.length - 9));
                 http.toggleCheckBox(divId, "open");
+                location.reload();
             }
             return;
         }
